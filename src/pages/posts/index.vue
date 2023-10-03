@@ -20,6 +20,9 @@ getposts()
 <template>
     <div class="container my-5">
         <div class="row g-3">
+            <div>
+                <RouterLink class="btn btn-dark" :to="{ name: 'createPost' }">create</RouterLink>
+            </div>
             <div v-if="loading" class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
