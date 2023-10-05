@@ -15,22 +15,21 @@ function getpost() {
         .catch(function (error) {
             console.log(error);
         });
-        
 }
 getpost()
 </script>
 
 <template>
-   <div class="container my-5">
-    <div class="row g-3">
-        <div v-if="loading" class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <div v-else class="col-md-4">
-            <PostCardView :post="post"/>
+    <div class="container my-5">
+        <div class="row g-3">
+            <div v-if="loading" class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div v-else class="col-md-4">
+                <PostCardView :post="post" />
+            </div>
         </div>
     </div>
-   </div>
 </template>
 
 <style scoped></style>

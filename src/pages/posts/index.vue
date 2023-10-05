@@ -19,14 +19,14 @@ getposts()
 
 <template>
     <div class="container my-5">
-        <div class="row g-3">
+        <div v-if="loading" class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="row g-3" v-else>
             <div>
                 <RouterLink class="btn btn-dark" :to="{ name: 'createPost' }">create</RouterLink>
             </div>
-            <div v-if="loading" class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div v-else class="col-md-4" v-for="post in posts" :key="post.id">
+            <div class="col-md-4" v-for="post in posts" :key="post.id">
                 <postCardView :post="post" />
             </div>
         </div>
