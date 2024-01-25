@@ -8,7 +8,7 @@ const loading = ref(false)
 
 async function deleteTask(id) {
     loading.value = true
-    await store.dispatch('deleteTask', id)
+    await store.dispatch('task/deleteTask', id)
     loading.value = false
 }
 </script>

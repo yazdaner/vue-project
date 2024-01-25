@@ -12,7 +12,7 @@ async function storeTask() {
   } else {
     loading.value = true
     titleError.value = ''
-    await store.dispatch('storeTask', title.value)
+    await store.dispatch('task/storeTask', title.value)
     loading.value = false
     title.value = ''
   }
