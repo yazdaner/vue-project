@@ -2,6 +2,7 @@
 import CreateComponent from '../components/tasks/CreateComponent.vue'
 import FilterComponent from '../components/tasks/FilterComponent.vue'
 import UpdateTaskComponent from '../components/tasks/UpdateTaskComponent.vue'
+import DeleteTaskComponent from '../components/tasks/DeleteTaskComponent.vue'
 
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
@@ -30,10 +31,13 @@ const tasks = computed(() => store.getters.allTasks)
     <div class="row g-3">
       <div v-for="task in tasks" :key="task.id" class="col-md-4">
         <div class="card">
-          <div class="card-body d-flex justify-content-between" :class="{ 'bg-light': task.completed }">
+          <div class="card-body d-flex justify-content-between align-items-center" :class="{ 'bg-light': task.completed }">
               <del v-if="task.completed">{{ task.title }}</del>
               <div v-else>{{ task.title }}</div>
-              <UpdateTaskComponent :task="task" />
+              <div class="d-flex align-items-center">
+                <UpdateTaskComponent :task="task" />
+                <DeleteTaskComponent :id="task.id" />
+              </div>
           </div>
         </div>
       </div>
