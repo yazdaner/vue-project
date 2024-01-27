@@ -14,6 +14,9 @@
               <li class="nav-item">
                 <RouterLink class="nav-link" to="/tasks">Task</RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink class="nav-link" to="/products">Product</RouterLink>
+              </li>
             </ul>
           </div>
         </div>
