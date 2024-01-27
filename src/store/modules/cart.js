@@ -1,30 +1,43 @@
+import Swal from 'sweetalert2';
+
+function updateLocalStorage(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
 const cart = {
-    namespaced : true ,
+    namespaced: true,
     state: {
-        cart : []
+        cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
     },
-    mutations : {
-        addToCart(state, product){
+    mutations: {
+        addToCart(state, product) {
             const item = state.cart.find(p => p.id == product.id);
-            if(!item){
+            if (!item) {
                 state.cart.push({
                     ...product,
-                    quantity : 1
+                    quantity: 1
                 });
-            }else{
+            } else {
                 item.quantity++
             }
-           
-            console.log(state.cart);
+            updateLocalStorage(state.cart);
         }
     },
-    actions : {
-        addToCart({commit},product)
-        {
-            commit('addToCart',product);
+    actions: {
+        addToCart({ commit }, product) {
+            commit('addToCart', product);
+            Swal.fire({
+                title: 'product added',
+                position: "top",
+                icon: 'success',
+                timer: 3000,
+                toast: true,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         }
     }
-    
+
 }
 
 export default cart;
