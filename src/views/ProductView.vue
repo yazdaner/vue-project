@@ -15,7 +15,7 @@ const products = computed(() => store.getters['product/allProducts'])
     <div class="row g-3">
       <div v-for="product in products" :key="product.id" class="col-md-3">
         <div class="card">
-          <img :src="product.image" class="card-img-top" alt="..." />
+          <img :src="product.image" class="card-img-top" />
           <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">{{ product.description }}</p>
