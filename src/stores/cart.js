@@ -1,66 +1,44 @@
+import { defineStore } from 'pinia';
 import Swal from 'sweetalert2';
 
 function updateLocalStorage(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-const cart = {
-    namespaced: true,
-    state: {
-        cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
-    },
-    getters : {
-        count(state){
-            return state.cart.length;
-        },
-        getItems(state){
-            return state.cart;
-        },
-        totalAmount(state){
-            return state.cart.reduce((total,p) => {
-                return total + p.price * p.quantity 
-            },0);
+export const useCartStore = defineStore('cart', {
+    state: () => {
+        return {
+            cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
         }
     },
-    mutations: {
-        addToCart(state, product) {
-            const item = state.cart.find(p => p.id == product.id);
+    getters: {
+        count() {
+            return this.cart.length;
+        },
+        getItems() {
+            return this.cart;
+        },
+        totalAmount() {
+            return this.cart.reduce((total, p) => {
+                return total + p.price * p.quantity
+            }, 0);
+        }
+    },
+    actions: {
+        addToCart(product) {
+
+            const item = this.cart.find(p => p.id == product.id);
             if (!item) {
-                state.cart.push({
+                this.cart.push({
                     ...product,
                     quantity: 1
                 });
             } else {
                 item.quantity++
             }
-            updateLocalStorage(state.cart);
-        },
-        increment(state,id){
-            const item = state.cart.find(p => p.id == id)
-            if(item){
-                item.quantity++
-            }
-            updateLocalStorage(state.cart)
-        },
-        decrement(state,id){
-            const item = state.cart.find(p => p.id == id)
-            if(item && item.quantity > 1){
-                item.quantity--
-            }
-            updateLocalStorage(state.cart)
-        },
-        deleteFromCart(state,id){
-            state.cart = state.cart.filter(p => p.id != id)
-            updateLocalStorage(state.cart)
-        },
-        clearCart(state){
-            state.cart = []
-            updateLocalStorage(state.cart)
-        }
-    },
-    actions: {
-        addToCart({ commit }, product) {
-            commit('addToCart', product);
+            updateLocalStorage(this.cart);
+
+
             Swal.fire({
                 title: 'product added',
                 position: "top",
@@ -71,8 +49,12 @@ const cart = {
                 showConfirmButton: false,
             })
         },
-        increment({ commit }, id){
-            commit('increment', id);
+        increment(id) {
+            const item = this.cart.find(p => p.id == id)
+            if (item) {
+                item.quantity++
+            }
+            updateLocalStorage(this.cart)
             Swal.fire({
                 title: 'product updated',
                 position: "top",
@@ -83,8 +65,12 @@ const cart = {
                 showConfirmButton: false,
             })
         },
-        decrement({ commit }, id){
-            commit('decrement', id);
+        decrement(id) {
+            const item = this.cart.find(p => p.id == id)
+            if (item && item.quantity > 1) {
+                item.quantity--
+            }
+            updateLocalStorage(this.cart)
             Swal.fire({
                 title: 'product updated',
                 position: "top",
@@ -95,8 +81,9 @@ const cart = {
                 showConfirmButton: false,
             })
         },
-        deleteFromCart({ commit }, id){
-            commit('deleteFromCart', id);
+        deleteFromCart(id) {
+            this.cart = this.cart.filter(p => p.id != id)
+            updateLocalStorage(this.cart)
             Swal.fire({
                 title: 'product removed',
                 position: "top",
@@ -107,8 +94,9 @@ const cart = {
                 showConfirmButton: false,
             })
         },
-        clearCart({ commit }){
-            commit('clearCart');
+        clearCart() {
+            this.cart = []
+            updateLocalStorage(this.cart)
             Swal.fire({
                 title: 'cart is clear',
                 position: "top",
@@ -121,6 +109,5 @@ const cart = {
         }
     }
 
-}
+})
 
-export default cart;

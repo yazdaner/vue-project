@@ -1,13 +1,15 @@
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
+import { useCartStore } from '../stores/cart'
+import { useProductStore } from '../stores/product'
 
+const storeCart = useCartStore()
+const storeProduct = useProductStore()
 function addToCart(product){
-    store.dispatch('cart/addToCart',product);
+  storeCart.addToCart(product);
 }
 
-const products = computed(() => store.getters['product/allProducts'])
+const products = computed(() => storeProduct.allProducts)
 </script>
 
 <template>

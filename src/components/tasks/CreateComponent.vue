@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
+import { useTaskStore } from '../../stores/task'
 
-const store = useStore()
+const store = useTaskStore()
 const title = ref()
 const titleError = ref()
 const loading = ref(false)
@@ -12,7 +12,7 @@ async function storeTask() {
   } else {
     loading.value = true
     titleError.value = ''
-    await store.dispatch('task/storeTask', title.value)
+    await store.storeTask(title.value)
     loading.value = false
     title.value = ''
   }

@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
+import { useTaskStore } from '../../stores/task'
+const store = useTaskStore()
 const props = defineProps(['id'])
 const id = props.id;
 const loading = ref(false)
 
 async function deleteTask(id) {
     loading.value = true
-    await store.dispatch('task/deleteTask', id)
+    await store.deleteTask(id)
     loading.value = false
 }
 </script>

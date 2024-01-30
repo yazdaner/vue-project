@@ -1,21 +1,22 @@
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
-const cartItems = computed(() => store.getters['cart/getItems'])
-const totalAmount = computed(() => store.getters['cart/totalAmount'])
+import { useCartStore } from '../stores/cart'
+
+const store = useCartStore()
+const cartItems = computed(() => store.getItems)
+const totalAmount = computed(() => store.totalAmount)
 function increment(id) {
-  store.dispatch('cart/increment', id)
+  store.increment(id)
 }
 function decrement(id) {
-  store.dispatch('cart/decrement', id)
+  store.decrement(id)
 }
 function deleteFromCart(id){
-  store.dispatch('cart/deleteFromCart', id)
+  store.deleteFromCart(id)
 
 }
 function clearCart(){
-  store.dispatch('cart/clearCart')
+  store.clearCart()
 }
 </script>
 <template>

@@ -5,17 +5,17 @@ import UpdateTaskComponent from '../components/tasks/UpdateTaskComponent.vue'
 import DeleteTaskComponent from '../components/tasks/DeleteTaskComponent.vue'
 
 import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useTaskStore } from '../stores/task'
 
 const loading = ref(false)
-const store = useStore()
+const store = useTaskStore()
 async function fetchTasks() {
   loading.value = true
-  await store.dispatch('task/fetchTasks')
+  await store.fetchTasks() 
   loading.value = false
 }
 fetchTasks()
-const tasks = computed(() => store.getters['task/allTasks'])
+const tasks = computed(() => store.allTasks)
 </script>
 
 <template>

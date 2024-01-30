@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
+import { useTaskStore } from '../../stores/task'
+const store = useTaskStore()
 const props = defineProps(['task'])
 const task = props.task;
 const loading = ref(false)
 
 async function updateTask(task) {
     loading.value = true
-    await store.dispatch('task/updateTask', task)
+    await store.updateTask(task)
     loading.value = false
 }
 </script>

@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
-const count = computed(() => store.getters['cart/count'])
+import { useCartStore } from '../stores/cart'
+const store = useCartStore()
+const count = computed(() => store.count)
 </script>
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
